@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NCR Property Registry — Verified Real Estate Agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #1E2A44;
+    --ink-soft: #384660;
+    --paper: #E9E6DA;
+    --paper-light: #F3F1E8;
+    --paper-dark: #DAD5C4;
+    --brass: #A9822F;
+    --brass-light: #C9A54F;
+    --seal-red: #9E3A28;
+    --charcoal: #24262B;
+    --line: rgba(30,42,68,0.18);
+    --shadow: 0 2px 10px rgba(30,42,68,0.08);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(30,42,68,0.035) 28px),
+      var(--paper);
+    color: var(--charcoal);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  /* ===== HEADER ===== */
+  header{
+    border-bottom: 3px double var(--ink);
+    background: var(--paper-light);
+    padding: 18px 0;
+  }
+  .header-row{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;}
+  .brand{display:flex; align-items:center; gap:12px;}
+  .seal-mark{
+    width:44px; height:44px; border-radius:50%;
+    border:2px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Zilla Slab', serif; font-weight:700; color:var(--brass);
+    font-size:18px; flex-shrink:0;
+    background: radial-gradient(circle, var(--paper-light) 60%, transparent 61%);
+  }
+  .brand-text .title{
+    font-family:'Zilla Slab', serif; font-weight:700; font-size:22px; color:var(--ink); letter-spacing:0.3px;
+  }
+  .brand-text .sub{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .reg-number{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft);
+    text-align:right; line-height:1.6;
+  }
+
+  /* ===== HERO ===== */
+  .hero{padding: 56px 0 40px; border-bottom:1px solid var(--line);}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--seal-red); margin-bottom:14px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:24px; height:1px; background:var(--seal-red);}
+  h1{
+    font-family:'Zilla Slab', serif; font-weight:700; font-size:44px; line-height:1.12;
+    color:var(--ink); max-width:640px; letter-spacing:-0.5px;
+  }
+  .hero-desc{
+    margin-top:16px; font-size:16px; line-height:1.6; color:var(--ink-soft); max-width:560px;
+  }
+
+  .search-panel{
+    margin-top:32px; background:var(--paper-light); border:1px solid var(--line);
+    padding:20px; box-shadow:var(--shadow); border-radius:2px;
+  }
+  .search-label{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:1.5px;
+    color:var(--ink-soft); margin-bottom:10px; display:block;
+  }
+  .search-input{
+    width:100%; padding:12px 14px; font-family:'Inter',sans-serif; font-size:15px;
+    border:1px solid var(--ink); background:#fff; color:var(--charcoal); border-radius:1px;
+  }
+  .search-input:focus{outline:2px solid var(--brass); outline-offset:1px;}
+
+  .filter-row{display:flex; flex-wrap:wrap; gap:24px; margin-top:18px;}
+  .filter-group{flex:1; min-width:220px;}
+  .filter-title{
+    font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:1.5px;
+    color:var(--ink-soft); margin-bottom:8px;
+  }
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:'Inter',sans-serif; font-size:13px; padding:6px 13px; border:1px solid var(--line);
+    background:transparent; color:var(--ink-soft); cursor:pointer; border-radius:20px;
+    transition:all 0.15s ease;
+  }
+  .chip:hover{border-color:var(--ink);}
+  .chip.active{background:var(--ink); color:var(--paper-light); border-color:var(--ink);}
+
+  .stats-strip{display:flex; gap:0; margin-top:28px; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .stat{flex:1; padding:14px 0; text-align:center; border-right:1px solid var(--line);}
+  .stat:last-child{border-right:none;}
+  .stat-num{font-family:'Zilla Slab', serif; font-weight:700; font-size:24px; color:var(--ink);}
+  .stat-label{font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--ink-soft); margin-top:2px;}
+
+  /* ===== RESULTS ===== */
+  .results-section{padding: 36px 0 60px;}
+  .results-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:20px; flex-wrap:wrap; gap:8px;}
+  .results-count{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:1px;}
+  .results-count b{color:var(--ink);}
+
+  .listing-grid{display:grid; grid-template-columns:1fr; gap:14px;}
+
+  .card{
+    background:var(--paper-light); border:1px solid var(--line); padding:20px 22px;
+    display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:start;
+    position:relative; transition: box-shadow 0.15s ease, transform 0.15s ease;
+    border-radius:2px;
+  }
+  .card:hover{box-shadow:var(--shadow); transform: translateY(-1px);}
+  .card.featured{border-left:4px solid var(--brass); background: linear-gradient(90deg, rgba(169,130,47,0.06), var(--paper-light) 60px);}
+
+  .card-main .name-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .card-main .name{font-family:'Zilla Slab', serif; font-weight:600; font-size:19px; color:var(--ink);}
+  .badge{
+    font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:1px; text-transform:uppercase;
+    padding:3px 8px; border-radius:2px; display:inline-flex; align-items:center; gap:4px;
+  }
+  .badge.verified{background:rgba(158,58,40,0.1); color:var(--seal-red); border:1px solid rgba(158,58,40,0.3);}
+  .badge.featured-badge{background:rgba(169,130,47,0.15); color:var(--brass); border:1px solid rgba(169,130,47,0.4);}
+
+  .card-meta{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft);
+    margin-top:6px; display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .card-desc{font-size:13.5px; color:var(--ink-soft); margin-top:10px; line-height:1.5; max-width:480px;}
+  .card-tags{margin-top:10px; display:flex; gap:6px; flex-wrap:wrap;}
+  .tag{font-size:11px; padding:3px 9px; background:var(--paper-dark); color:var(--ink-soft); border-radius:20px;}
+
+  .card-action{display:flex; flex-direction:column; align-items:flex-end; gap:8px; min-width:130px;}
+  .reg-id{font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--ink-soft); opacity:0.7;}
+  .contact-btn{
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13px; padding:9px 16px;
+    background:var(--ink); color:var(--paper-light); border:none; cursor:pointer; border-radius:2px;
+    white-space:nowrap; transition:background 0.15s ease;
+  }
+  .contact-btn:hover{background:var(--ink-soft);}
+
+  .empty-state{
+    text-align:center; padding:60px 20px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; font-size:13px;
+  }
+
+  /* ===== CTA — GET LISTED ===== */
+  .cta-section{
+    background:var(--ink); color:var(--paper-light); padding:52px 0; margin-top:20px;
+  }
+  .cta-inner{display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:center;}
+  .cta-eyebrow{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--brass-light); margin-bottom:12px;}
+  .cta-title{font-family:'Zilla Slab', serif; font-weight:700; font-size:28px; line-height:1.25; max-width:420px;}
+  .cta-desc{margin-top:12px; font-size:14.5px; color:#C9CFDD; max-width:440px; line-height:1.6;}
+
+  .tier-card{background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); padding:20px; border-radius:2px;}
+  .tier-card + .tier-card{margin-top:12px;}
+  .tier-name{font-family:'Zilla Slab', serif; font-weight:600; font-size:16px; display:flex; justify-content:space-between; align-items:center;}
+  .tier-price{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--brass-light);}
+  .tier-desc{font-size:12.5px; color:#B7BECF; margin-top:6px; line-height:1.5;}
+
+  footer{padding:24px 0; text-align:center; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); border-top:1px solid var(--line);}
+
+  @media (max-width:720px){
+    h1{font-size:32px;}
+    .card{grid-template-columns:1fr;}
+    .card-action{flex-direction:row; align-items:center; justify-content:space-between; width:100%;}
+    .cta-inner{grid-template-columns:1fr;}
+    .stats-strip{flex-wrap:wrap;}
+    .stat{flex:1 1 50%; border-bottom:1px solid var(--line);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-row">
+    <div class="brand">
+      <div class="seal-mark">NCR</div>
+      <div class="brand-text">
+        <div class="title">NCR Property Registry</div>
+        <div class="sub">Verified Agent Directory</div>
+      </div>
+    </div>
+    <div class="reg-number">REGISTER VOL. 01 — DELHI NCR<br>EST. 2026</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Public Directory of Record</div>
+    <h1>Every verified property dealer across Delhi NCR, in one register.</h1>
+    <p class="hero-desc">Search by city and specialty to find agents who've been checked and confirmed. Agents can request an entry — featured entries appear first within their category.</p>
+
+    <div class="search-panel">
+      <label class="search-label">Search Register</label>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by name, locality, or specialty…">
+
+      <div class="filter-row">
+        <div class="filter-group">
+          <div class="filter-title">City</div>
+          <div class="chip-row" id="cityFilters"></div>
+        </div>
+        <div class="filter-group">
+          <div class="filter-title">Category</div>
+          <div class="chip-row" id="categoryFilters"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-strip" id="statsStrip"></div>
+  </div>
+</section>
+
+<section class="results-section">
+  <div class="wrap">
+    <div class="results-head">
+      <div class="results-count" id="resultsCount"></div>
+    </div>
+    <div class="listing-grid" id="listingGrid"></div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="wrap cta-inner">
+    <div>
+      <div class="cta-eyebrow">For Property Dealers</div>
+      <div class="cta-title">Get your agency into the register.</div>
+      <p class="cta-desc">A free entry gets you found. A featured entry gets you found first — top placement in your city and category, a verified seal, and a direct contact button. Message us to get listed.</p>
+    </div>
+    <div>
+      <div class="tier-card">
+        <div class="tier-name">Standard Entry <span class="tier-price">Free</span></div>
+        <div class="tier-desc">Name, contact, service area, and specialty listed under your city and category.</div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Featured Entry <span class="tier-price">₹1,500/mo</span></div>
+        <div class="tier-desc">Top of category, featured seal, full description, tags, and priority contact button.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>NCR PROPERTY REGISTRY — A DIRECTORY OF RECORD — DEMO DATA SHOWN BELOW</footer>
+
+<script>
+// ============================================================
+// LISTING DATA — this is the array you edit to add/remove/feature agents.
+// Copy the object structure below for each new entry.
+// Set "featured": true to make an entry appear first with the gold seal.
+// ============================================================
+const listings = [
+  { name:"Lohia Properties", city:"Greater Noida", category:"Residential", area:"Sector Alpha, Greater Noida", phone:"+91 98XXXXXXX0", featured:true, verified:true, desc:"Specialists in ready-to-move and under-construction apartments across Greater Noida West.", tags:["Apartments","Resale","New Launch"], regId:"NCR-GN-1042" },
+  { name:"Shree Balaji Realty", city:"Noida", category:"Residential", area:"Sector 62, Noida", phone:"+91 98XXXXXXX1", featured:true, verified:true, desc:"20+ years in Noida residential — Sectors 62, 63, 44, and Indirapuram.", tags:["Apartments","Rentals","Plots"], regId:"NCR-ND-0871" },
+  { name:"Capital Commercial Advisors", city:"Gurugram", category:"Commercial", area:"Cyber City, Gurugram", phone:"+91 98XXXXXXX2", featured:true, verified:true, desc:"Office leasing and commercial space advisory for MNC and startup clients.", tags:["Office Space","Leasing","Co-working"], regId:"NCR-GG-0233" },
+  { name:"Yamuna Enclave Estates", city:"Noida", category:"Plots & Land", area:"Sector 128, Noida", phone:"+91 98XXXXXXX3", featured:false, verified:true, desc:"Land and plot dealing along the Yamuna Expressway corridor.", tags:["Plots","Farmhouse Land"], regId:"NCR-ND-0654" },
+  { name:"Metro Homes Consultancy", city:"Delhi", category:"Residential", area:"Janakpuri, New Delhi", phone:"+91 98XXXXXXX4", featured:false, verified:true, desc:"West Delhi residential resale and rental specialists.", tags:["Resale","Rentals"], regId:"NCR-DL-0198" },
+  { name:"Aravali Ridge Realty", city:"Gurugram", category:"Residential", area:"Sohna Road, Gurugram", phone:"+91 98XXXXXXX5", featured:false, verified:true, desc:"Premium villas and gated community apartments along Sohna Road.", tags:["Villas","Apartments"], regId:"NCR-GG-0459" },
+  { name:"Greater Noida Land Corp", city:"Greater Noida", category:"Plots & Land", area:"Pari Chowk, Greater Noida", phone:"+91 98XXXXXXX6", featured:false, verified:true, desc:"Industrial and residential plot allotment guidance.", tags:["Plots","Industrial"], regId:"NCR-GN-0322" },
+  { name:"Dwarka Housing Associates", city:"Delhi", category:"Residential", area:"Dwarka, New Delhi", phone:"+91 98XXXXXXX7", featured:false, verified:true, desc:"DDA flats, resale, and rental listings across Dwarka sub-city.", tags:["DDA Flats","Rentals"], regId:"NCR-DL-0512" },
+  { name:"Udyog Vihar Office Space", city:"Gurugram", category:"Commercial", area:"Udyog Vihar, Gurugram", phone:"+91 98XXXXXXX8", featured:false, verified:true, desc:"Warehouse and light-industrial commercial leasing.", tags:["Warehousing","Industrial"], regId:"NCR-GG-0687" },
+  { name:"Noida Extension Homes", city:"Noida", category:"Residential", area:"Noida Extension", phone:"+91 98XXXXXXX9", featured:false, verified:true, desc:"Affordable housing specialists in Noida Extension / Greater Noida West belt.", tags:["Affordable Housing","New Launch"], regId:"NCR-ND-0765" },
+];
+
+const cities = ["All", ...new Set(listings.map(l => l.city))];
+const categories = ["All", ...new Set(listings.map(l => l.category))];
+
+let activeCity = "All";
+let activeCategory = "All";
+let searchTerm = "";
+
+function renderFilters(){
+  const cityWrap = document.getElementById('cityFilters');
+  const catWrap = document.getElementById('categoryFilters');
+  cityWrap.innerHTML = cities.map(c =>
+    `<button class="chip ${c===activeCity?'active':''}" data-type="city" data-val="${c}">${c}</button>`
+  ).join('');
+  catWrap.innerHTML = categories.map(c =>
+    `<button class="chip ${c===activeCategory?'active':''}" data-type="category" data-val="${c}">${c}</button>`
+  ).join('');
+
+  document.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if(btn.dataset.type === 'city') activeCity = btn.dataset.val;
+      if(btn.dataset.type === 'category') activeCategory = btn.dataset.val;
+      renderFilters();
+      renderListings();
+    });
+  });
+}
+
+function renderStats(){
+  const strip = document.getElementById('statsStrip');
+  const verifiedCount = listings.filter(l => l.verified).length;
+  strip.innerHTML = `
+    <div class="stat"><div class="stat-num">${listings.length}</div><div class="stat-label">Registered Agents</div></div>
+    <div class="stat"><div class="stat-num">${verifiedCount}</div><div class="stat-label">Verified Entries</div></div>
+    <div class="stat"><div class="stat-num">${cities.length - 1}</div><div class="stat-label">Cities Covered</div></div>
+    <div class="stat"><div class="stat-num">${categories.length - 1}</div><div class="stat-label">Categories</div></div>
+  `;
+}
+
+function renderListings(){
+  const grid = document.getElementById('listingGrid');
+  const countEl = document.getElementById('resultsCount');
+
+  let filtered = listings.filter(l => {
+    const matchCity = activeCity === "All" || l.city === activeCity;
+    const matchCat = activeCategory === "All" || l.category === activeCategory;
+    const matchSearch = searchTerm === "" ||
+      l.name.toLowerCase().includes(searchTerm) ||
+      l.area.toLowerCase().includes(searchTerm) ||
+      l.category.toLowerCase().includes(searchTerm) ||
+      l.tags.some(t => t.toLowerCase().includes(searchTerm));
+    return matchCity && matchCat && matchSearch;
+  });
+
+  // Featured entries first
+  filtered.sort((a,b) => (b.featured === true) - (a.featured === true));
+
+  countEl.innerHTML = `Showing <b>${filtered.length}</b> of ${listings.length} registered entries`;
+
+  if(filtered.length === 0){
+    grid.innerHTML = `<div class="empty-state">No entries match this search. Try a different city or category.</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(l => `
+    <div class="card ${l.featured ? 'featured' : ''}">
+      <div class="card-main">
+        <div class="name-row">
+          <span class="name">${l.name}</span>
+          ${l.featured ? `<span class="badge featured-badge">★ Featured</span>` : ''}
+          ${l.verified ? `<span class="badge verified">✓ Verified</span>` : ''}
+        </div>
+        <div class="card-meta">
+          <span>${l.area}</span>
+          <span>·</span>
+          <span>${l.category}</span>
+          <span>·</span>
+          <span>${l.city}</span>
+        </div>
+        <div class="card-desc">${l.desc}</div>
+        <div class="card-tags">${l.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+      <div class="card-action">
+        <div class="reg-id">${l.regId}</div>
+        <button class="contact-btn" onclick="alert('Contact: ${l.phone}')">Contact</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  searchTerm = e.target.value.toLowerCase();
+  renderListings();
+});
+
+renderFilters();
+renderStats();
+renderListings();
+</script>
+
+</body>
+</html>
